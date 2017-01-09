@@ -1,4 +1,4 @@
-#~/Google Drive/Projects/oyster_card/spec/oystercard_spec.rb
+# In ~/Google Drive/Projects/oyster_card/spec/oystercard_spec.rb
 
 describe Oystercard do
 

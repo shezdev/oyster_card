@@ -1,0 +1,39 @@
+Stack Trace Analysis
+---------------------
+
+e.g. of error
+-------------
+Ruby NameError
+
+Path:
+-----
+/Users/shereen/Google Drive/Projects/oyster_card/spec/oystercard_spec.rb
+
+Line no:
+--------
+3
+
+Ruby Docs
+----------
+http://ruby-doc.org/core-2.2.0/NameError.html
+
+Potential Solution
+------------------
+Create a class called Oystercard in ../lib/oystercard.rb
+
+Actual Output
+--------------
+/Users/shereen/Google Drive/Projects/oyster_card/spec/oystercard_spec.rb:3:in `<top (required)>': uninitialized constant Oystercard (NameError)
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/configuration.rb:1435:in `load'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/configuration.rb:1435:in `block in load_spec_files'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/configuration.rb:1433:in `each'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/configuration.rb:1433:in `load_spec_files'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/runner.rb:100:in `setup'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/runner.rb:86:in `run'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/runner.rb:71:in `run'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/lib/rspec/core/runner.rb:45:in `invoke'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/gems/rspec-core-3.5.4/exe/rspec:4:in `<top (required)>'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/bin/rspec:22:in `load'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/bin/rspec:22:in `<main>'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:15:in `eval'
+	from /Users/shereen/.rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:15:in `<main>'
