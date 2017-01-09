@@ -19,7 +19,7 @@ http://ruby-doc.org/core-2.2.0/NameError.html
 
 Potential Solution
 ------------------
-Create a class called Oystercard in ../lib/oystercard.rb
+Create a class called Oystercard in ../lib/oystercard.rb THEN add a require_statement to the oystercard_spec.rb file
 
 Actual Output
 --------------
