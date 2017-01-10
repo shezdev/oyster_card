@@ -2,6 +2,8 @@
 
 class Oystercard
 
+BALANCE_LIMIT = 90
+
 # 1st rspec test
 attr_reader :balance # # You need this to make the instance variable '@balance' below available to the instance when calling it directly. e.g. card = Oystercard.new, card.balance won't work, instead use card.get_balance but a SHORTCUT is to use attr_reader.
 
@@ -14,9 +16,14 @@ attr_reader :balance # # You need this to make the instance variable '@balance' 
 #   @balance
 # end
 
-# 2nd rspec test
-  def top_up(amt)
-    # amt = topup + amt
+# 2nd and 3rd rspec tests
+  def top_up(amount)
+    raise "ERROR! You have exceeded your set balance limit of £90" if @balance + amount > BALANCE_LIMIT
+    #@balance = @balance + top_up_amt has been refactored to:
+    @balance =+ amount
+
+
+
   end
 
 
