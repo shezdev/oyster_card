@@ -5,10 +5,13 @@ class Oystercard
 BALANCE_LIMIT = 90
 
 # 1st rspec test
-attr_reader :balance # # You need this to make the instance variable '@balance' below available to the instance when calling it directly. e.g. card = Oystercard.new, card.balance won't work, instead use card.get_balance but a SHORTCUT is to use attr_reader.
+attr_reader :balance
+
+# # You need this to make the instance variable '@balance' below available to the instance when calling it directly. e.g. card = Oystercard.new, card.balance won't work, instead use card.get_balance but a SHORTCUT is to use attr_reader.
 
   def initialize
     @balance = 0
+    @in_use = false #initially the card isn't in use
   end
 
 ## Using attr_reader is a SHORTCUT for this method
@@ -28,6 +31,9 @@ attr_reader :balance # # You need this to make the instance variable '@balance' 
 
   end
 
+  def in_journey?
+    @in_use
+  end
 
 
 end

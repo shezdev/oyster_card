@@ -6,6 +6,9 @@ describe Oystercard do
   # 1st test
   it { is_expected.to respond_to(:top_up).with(1).argument }
 
+  #6th test
+  it {is_expected.to respond_to :in_journey?}
+
   #2nd test
   context "When a new object is initialized" do
     it "has a default balance of 0" do
@@ -38,6 +41,8 @@ describe Oystercard do
       end
     end
   end
+
+
 
 
 end #of describe Oystercard
