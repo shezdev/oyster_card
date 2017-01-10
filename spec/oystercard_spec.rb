@@ -28,7 +28,16 @@ describe Oystercard do
         expect{ subject.top_up limit + rand(100) }.to raise_error("ERROR! You have exceeded your set balance limit of £#{limit}")
       end
     end
-
   end # end of describe block
 
-end
+  #5th test
+  describe "#deduct" do
+    context "when invoked with the fare value as the arg" do
+      it "reduces balance by the fare value" do
+        expect{ subject.deduct 5 }.to change{ subject.balance }.by 5
+      end
+    end
+  end
+
+
+end #of describe Oystercard 
