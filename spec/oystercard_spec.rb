@@ -31,13 +31,13 @@ describe Oystercard do
   end # end of describe block
 
   #5th test
-  describe "#deduct" do
+  describe "#deduct(fare)" do
     context "when invoked with the fare value as the arg" do
       it "reduces balance by the fare value" do
-        expect{ subject.deduct 5 }.to change{ subject.balance }.by 5
+        expect{ subject.deduct 5 }.to change{ subject.balance }.by(-5)
       end
     end
   end
 
 
-end #of describe Oystercard 
+end #of describe Oystercard

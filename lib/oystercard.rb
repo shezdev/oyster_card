@@ -16,13 +16,15 @@ attr_reader :balance # # You need this to make the instance variable '@balance' 
 #   @balance
 # end
 
-# 2nd and 3rd rspec tests
+# 2nd - 4th rspec tests
   def top_up(amount)
     raise "ERROR! You have exceeded your set balance limit of £#{BALANCE_LIMIT}" if @balance + amount > BALANCE_LIMIT
     #@balance = @balance + top_up_amt has been refactored to:
     @balance =+ amount
+  end
 
-
+  def deduct(fare)
+    @balance =- fare
 
   end
 
