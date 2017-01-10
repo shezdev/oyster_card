@@ -22,13 +22,13 @@ describe Oystercard do
     end
 
     #4th test
-    # Write a test that checks the top_up method throws an exception if the new balance would exceed the limit.
-
     context "when the balance limit of £90 is exceeded" do
       it "throws an exception" do
-        expect{ subject.top_up 91 }.to raise_error("ERROR! You have exceeded your set balance limit of £90")
+       limit = Oystercard::BALANCE_LIMIT # you have to use the class name here, because BALANCE_LIMIT is a class constant.
+        expect{ subject.top_up limit + rand(100) }.to raise_error("ERROR! You have exceeded your set balance limit of £#{limit}")
       end
     end
-  end
+
+  end # end of describe block
 
 end
