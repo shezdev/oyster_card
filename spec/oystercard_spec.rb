@@ -30,13 +30,15 @@ describe Oystercard do
       end
     end
 
+
     #4th test
     context "when the balance limit of £90 is exceeded" do
       it "throws an exception" do
        limit = Oystercard::BALANCE_LIMIT # you have to use the class name here, because BALANCE_LIMIT is a class constant.
-        expect{ subject.top_up limit + rand(100) }.to raise_error("ERROR! You have exceeded your set balance limit of £#{limit}")
+        expect{ subject.top_up limit + 1 }.to raise_error("ERROR! You have exceeded your set balance limit of £#{limit}")
       end
     end
+
   end # end of describe block
 
   #5th test
@@ -48,7 +50,49 @@ describe Oystercard do
     end
   end
 
+  #9th test
+  describe "#touch_in" do
+    context "when the customer touches in at the barriers" do
+      it "can touch in" do
+        subject.balance > Oystercard::FARE
+        subject.top_up(10)
+        subject.touch_in
+        expect(subject).to be_in_journey
+      end
+      it "throws an error if insufficient funds" do
+        subject.balance < Oystercard::FARE
+        expect{subject.touch_in}.to raise_error "Unable to touch in - insufficient funds"
+
+      end
+    end
+  end # end of describe block
+
+  #10th test
+  describe "#touch_out" do
+    context "when the customer touches out at the barriers" do
+      it "is in no longer in use" do
+        subject.top_up(10)
+        subject.touch_in
+        subject.touch_out
+          expect(subject).not_to be_in_journey
+      end
+    end
+  end # end of describe block
 
 
+  describe "#top_up(amount)" do
+    context "when invoked with the top-up value as the arg" do
+      it "increases balance by top_up value" do
+       expect{ subject.top_up 5 }.to change{ subject.balance }.by 5
+      end
+    end
+  end
 
-end #of describe Oystercard
+    # context "when there are insuffient funds on the card" do
+    #   it "throws an exception" do
+    #     expect{ subject.balance - 1 }.to raise_error("ERROR! You have insufficient funds on the card")
+    #   end
+    # end
+
+
+ end #of describe Oystercard

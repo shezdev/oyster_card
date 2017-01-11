@@ -3,6 +3,7 @@
 class Oystercard
 
 BALANCE_LIMIT = 90
+FARE = 1
 
 # 1st rspec test
 attr_reader :balance
@@ -21,9 +22,9 @@ attr_reader :balance
 
 # 2nd - 4th rspec tests
   def top_up(amount)
-    raise "ERROR! You have exceeded your set balance limit of £#{BALANCE_LIMIT}" if @balance + amount > BALANCE_LIMIT
-    #@balance = @balance + top_up_amt has been refactored to:
-    @balance =+ amount
+   raise "ERROR! You have exceeded your set balance limit of £#{BALANCE_LIMIT}" if @balance + amount > BALANCE_LIMIT
+  #@balance = @balance + top_up_amt has been refactored to:
+  @balance =+ amount
   end
 
   def deduct(fare)
@@ -31,16 +32,19 @@ attr_reader :balance
 
   end
 
-  def in_journey?
-    @in_use
-  end
-
   def touch_in
+    raise "Unable to touch in - insufficient funds" if @balance < FARE
+    @in_use = true
+    deduct(FARE)
 
   end
 
   def touch_out
+    @in_use = false
+  end
 
+  def in_journey?
+    @in_use
   end
 
 end
