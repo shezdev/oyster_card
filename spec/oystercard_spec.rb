@@ -41,29 +41,23 @@ describe Oystercard do
 
   end # end of describe block
 
-  #5th test
-  describe "#deduct(fare)" do
-    context "when invoked with the fare value as the arg" do
-      it "reduces balance by the fare value" do
-        expect{ subject.deduct 5 }.to change{ subject.balance }.by(-5)
-      end
-    end
-  end
 
   #9th test
   describe "#touch_in" do
     context "when the customer touches in at the barriers" do
-      it "can touch in" do
+        it "can touch in" do
         subject.balance > Oystercard::FARE
         subject.top_up(10)
         subject.touch_in
         expect(subject).to be_in_journey
-      end
-      it "throws an error if insufficient funds" do
+        end
+        it "throws an error if insufficient funds" do
         subject.balance < Oystercard::FARE
         expect{subject.touch_in}.to raise_error "Unable to touch in - insufficient funds"
-
-      end
+        end
+        # it "records the entry station" do
+        #   expect{subject.touch_in(subject.entry_station)}.to eq (" ")
+      #  end
     end
   end # end of describe block
 
@@ -77,6 +71,14 @@ describe Oystercard do
           expect(subject).not_to be_in_journey
       end
     end
+    #5th test
+    describe "#deduct(fare)" do
+      context "when invoked with the fare value as the arg" do
+        it "reduces balance by the fare value" do
+          expect{ subject.deduct Oystercard::FARE }.to change{ subject.balance }.by -(Oystercard::FARE)
+        end
+      end
+    end
   end # end of describe block
 
 
@@ -88,11 +90,6 @@ describe Oystercard do
     end
   end
 
-    # context "when there are insuffient funds on the card" do
-    #   it "throws an exception" do
-    #     expect{ subject.balance - 1 }.to raise_error("ERROR! You have insufficient funds on the card")
-    #   end
-    # end
 
 
  end #of describe Oystercard
