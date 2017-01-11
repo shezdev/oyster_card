@@ -35,5 +35,8 @@ attr_reader :balance
     @in_use
   end
 
+  def touch_in
+    
+  end
 
 end

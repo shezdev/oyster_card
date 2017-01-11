@@ -9,6 +9,10 @@ describe Oystercard do
   #6th test
   it {is_expected.to respond_to :in_journey?}
 
+  #7th test
+  it {is_expected.to respond_to :touch_in}
+
+
   #2nd test
   context "When a new object is initialized" do
     it "has a default balance of 0" do
