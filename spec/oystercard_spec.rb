@@ -12,6 +12,8 @@ describe Oystercard do
   #7th test
   it {is_expected.to respond_to :touch_in}
 
+  #8th test
+  it {is_expected.to respond_to :touch_out}
 
   #2nd test
   context "When a new object is initialized" do

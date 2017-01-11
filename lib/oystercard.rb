@@ -36,7 +36,11 @@ attr_reader :balance
   end
 
   def touch_in
-    
+
+  end
+
+  def touch_out
+
   end
 
 end
