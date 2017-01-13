@@ -3,6 +3,9 @@
 require "oystercard"
 
 describe Oystercard do
+   let(:station) {instance_double(Station)}
+  # let(:station1) {instance_double(Station)}
+
   it { is_expected.to respond_to(:top_up).with(1).argument }
   it {is_expected.to respond_to :in_journey?}
   it {is_expected.to respond_to :touch_in}
@@ -31,19 +34,21 @@ describe Oystercard do
 
   describe "#touch_in" do
     context "when the customer touches in at the barriers" do
-        it "can touch in" do
-        subject.balance > Oystercard::MIN_FARE
+      it "throws an error if insufficient funds" do
+        expect{subject.touch_in(station)}.to raise_error "Unable to touch in - insufficient funds"
+      end
+      it "can touch in" do
+        # subject.balance > Oystercard::MIN_FARE
         subject.top_up(10)
-        subject.touch_in
+        subject.touch_in(station)
         expect(subject).to be_in_journey
+      end
+        #I'M HERE
+        it "records the entry station" do
+          subject.top_up(10)
+          subject.touch_in(station)
+          expect(subject.entry_station).to eq (station)
         end
-        it "throws an error if insufficient funds" do
-        subject.balance < Oystercard::MIN_FARE
-        expect{subject.touch_in}.to raise_error "Unable to touch in - insufficient funds"
-        end
-        # it "records the entry station" do
-        #   expect{subject.touch_in(subject.entry_station)}.to eq (" ")
-      #  end
     end
   end
 
@@ -51,7 +56,7 @@ describe Oystercard do
     context "when the customer touches out at the barriers" do
       it "is in no longer in use" do
         subject.top_up(10)
-        subject.touch_in
+        subject.touch_in(station)
         subject.touch_out
           expect(subject).not_to be_in_journey
       end
@@ -66,14 +71,6 @@ describe Oystercard do
     end
   end
 
-
-  describe "#top_up(amount)" do
-    context "when invoked with the top-up value as the arg" do
-      it "increases balance by top_up value" do
-       expect{ subject.top_up 5 }.to change{ subject.balance }.by 5
-      end
-    end
-  end
 
 
 
