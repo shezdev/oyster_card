@@ -9,7 +9,6 @@ attr_reader :balance, :entry_station, :journeys
 
   def initialize
     @balance = 0
-    @in_use = false
     @journeys = []
   end
 
@@ -30,7 +29,7 @@ attr_reader :balance, :entry_station, :journeys
   end
 
   def deduct(fare)
-    @balance =- fare
+    @balance -= fare
   end
 
   # private

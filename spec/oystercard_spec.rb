@@ -44,7 +44,6 @@ describe Oystercard do
         subject.touch_in(station)
         expect(subject).to be_in_journey
       end
-        #I'M HERE
         it "records the entry station" do
           subject.top_up(10)
           subject.touch_in(station)
@@ -75,7 +74,7 @@ describe Oystercard do
   describe "#journeys" do
     context "records a list of journeys" do
       it "starts empty" do
-        expect(subject.journeys).to be []
+        expect(subject.journeys).to be_a Array
       end
       it "records one journey after touching in and out" do
         subject.top_up(10)
