@@ -1,6 +1,7 @@
 # In ~/Google Drive/Projects/oyster_card/lib/oystercard.rb
 require_relative "station"
 require_relative "journey"
+require_relative "journey_log"
 
 class Oystercard
 
@@ -11,6 +12,7 @@ attr_reader :balance, :entry_station, :journeys, :journey
 
   def initialize
     @balance = 0
+    @journey_log = JourneyLog.new
     @journeys = []
     @journey = Journey.new
   end
