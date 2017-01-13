@@ -5,6 +5,7 @@ class Oystercard
 
 BALANCE_LIMIT = 90
 MIN_FARE = 1
+PENALTY_FARE = 6
 attr_reader :balance, :entry_station, :journeys
 
   def initialize
@@ -23,12 +24,16 @@ attr_reader :balance, :entry_station, :journeys
   end
 
   def touch_out(station)
-    deduct(MIN_FARE)
+    charge_fare
     @journeys << {start: entry_station, end: station}
     @entry_station = nil
   end
 
   private
+
+  def charge_fare
+    entry_station.nil? ? deduct(PENALTY_FARE) : deduct(MIN_FARE)
+  end
 
   def add(amount)
     @balance =+ amount

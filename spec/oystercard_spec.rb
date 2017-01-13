@@ -7,6 +7,7 @@ describe Oystercard do
   let(:station1) {instance_double(Station)}
   limit = Oystercard::BALANCE_LIMIT
   min_fare = Oystercard::MIN_FARE
+  penalty_fare = Oystercard::PENALTY_FARE
 
   context "When a new object is initialized" do
     it "has a default balance of 0" do
@@ -49,14 +50,20 @@ describe Oystercard do
 
   describe "#touch_out" do
     context "when the customer touches out at the barriers" do
-      it "is in no longer in use" do
+      it "the journey ends" do
         subject.top_up(10)
         subject.touch_in(station)
         subject.touch_out(station1)
         expect(subject.entry_station).to eq nil
       end
       it "reduces balance by the fare value" do
-        expect{ subject.touch_out station }.to change{ subject.balance }.by -(min_fare)
+        subject.top_up(10)
+        subject.touch_in(station)
+        expect{ subject.touch_out station1 }.to change{ subject.balance }.by -(min_fare)
+      end
+      it "charge penalty if not touched in" do
+        subject.top_up(10)
+        expect{ subject.touch_out station }.to change{ subject.balance }.by -(penalty_fare)
       end
     end
   end
