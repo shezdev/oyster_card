@@ -3,13 +3,10 @@
 require "oystercard"
 
 describe Oystercard do
-   let(:station) {instance_double(Station)}
-   let(:station1) {instance_double(Station)}
-
-  it { is_expected.to respond_to(:top_up).with(1).argument }
-  it {is_expected.to respond_to :in_journey?}
-  it {is_expected.to respond_to :touch_in}
-  it {is_expected.to respond_to :touch_out}
+  let(:station) {instance_double(Station)}
+  let(:station1) {instance_double(Station)}
+  limit = Oystercard::BALANCE_LIMIT
+  min_fare = Oystercard::MIN_FARE
 
   context "When a new object is initialized" do
     it "has a default balance of 0" do
@@ -17,16 +14,15 @@ describe Oystercard do
     end
   end
 
-  describe "#top_up(amount)" do
+  describe "#top_up" do
     context "when invoked with the top-up value as the arg" do
       it "increases balance by top_up value" do
        expect{ subject.top_up 5 }.to change{ subject.balance }.by 5
       end
     end
 
-    context "when the balance limit of £90 is exceeded" do
+    context "when the balance limit of £#{limit} is exceeded" do
       it "throws an exception" do
-        limit = Oystercard::BALANCE_LIMIT
         msg = "ERROR! You have exceeded your set balance limit of £#{limit}"
         expect{ subject.top_up limit + 1 }.to raise_error(msg)
       end
@@ -39,10 +35,9 @@ describe Oystercard do
         expect{subject.touch_in(station)}.to raise_error "Unable to touch in - insufficient funds"
       end
       it "can touch in" do
-        # subject.balance > Oystercard::MIN_FARE
         subject.top_up(10)
         subject.touch_in(station)
-        expect(subject).to be_in_journey
+        expect(subject.entry_station).not_to eq nil
       end
         it "records the entry station" do
           subject.top_up(10)
@@ -58,15 +53,10 @@ describe Oystercard do
         subject.top_up(10)
         subject.touch_in(station)
         subject.touch_out(station1)
-          expect(subject).not_to be_in_journey
+        expect(subject.entry_station).to eq nil
       end
-    end
-  end
-
-  describe "#deduct(fare)" do
-    context "when invoked with the fare value as the arg" do
       it "reduces balance by the fare value" do
-        expect{ subject.deduct Oystercard::MIN_FARE }.to change{ subject.balance }.by -(Oystercard::MIN_FARE)
+        expect{ subject.touch_out station }.to change{ subject.balance }.by -(min_fare)
       end
     end
   end

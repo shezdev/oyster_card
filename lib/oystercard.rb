@@ -14,7 +14,7 @@ attr_reader :balance, :entry_station, :journeys
 
   def top_up(amount)
     raise exceed_limit_msg if @balance + amount > BALANCE_LIMIT
-    @balance =+ amount
+    add(amount)
   end
 
   def touch_in(station)
@@ -28,11 +28,15 @@ attr_reader :balance, :entry_station, :journeys
     @entry_station = nil
   end
 
+  private
+
+  def add(amount)
+    @balance =+ amount
+  end
+
   def deduct(fare)
     @balance -= fare
   end
-
-  # private
 
   def in_journey?
     !entry_station.nil? #i.e. entry station empty is false
