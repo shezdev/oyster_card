@@ -1,5 +1,6 @@
 # In ~/Google Drive/Projects/oyster_card/lib/oystercard.rb
 require_relative "station"
+require_relative "journey"
 
 class Oystercard
 
