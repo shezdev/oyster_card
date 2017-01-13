@@ -54,7 +54,7 @@ describe Oystercard do
         subject.top_up(10)
         subject.touch_in(station)
         subject.touch_out(station1)
-        expect(subject.entry_station).to eq nil
+        expect(subject.journey.entry_station).to eq nil
       end
       it "reduces balance by the fare value" do
         subject.top_up(10)
