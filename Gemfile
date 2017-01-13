@@ -1,5 +1,5 @@
 source 'https://rubygems.org' # use single quotes else !
-ruby '2.4.0'
+ruby '2.3.3'
 
 gem "makersinit"
 

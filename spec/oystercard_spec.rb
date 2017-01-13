@@ -4,7 +4,7 @@ require "oystercard"
 
 describe Oystercard do
    let(:station) {instance_double(Station)}
-  # let(:station1) {instance_double(Station)}
+   let(:station1) {instance_double(Station)}
 
   it { is_expected.to respond_to(:top_up).with(1).argument }
   it {is_expected.to respond_to :in_journey?}
@@ -26,8 +26,9 @@ describe Oystercard do
 
     context "when the balance limit of £90 is exceeded" do
       it "throws an exception" do
-       limit = Oystercard::BALANCE_LIMIT # you have to use the class name here, because BALANCE_LIMIT is a class constant.
-        expect{ subject.top_up limit + 1 }.to raise_error("ERROR! You have exceeded your set balance limit of £#{limit}")
+        limit = Oystercard::BALANCE_LIMIT
+        msg = "ERROR! You have exceeded your set balance limit of £#{limit}"
+        expect{ subject.top_up limit + 1 }.to raise_error(msg)
       end
     end
   end
@@ -57,7 +58,7 @@ describe Oystercard do
       it "is in no longer in use" do
         subject.top_up(10)
         subject.touch_in(station)
-        subject.touch_out
+        subject.touch_out(station1)
           expect(subject).not_to be_in_journey
       end
     end
@@ -71,7 +72,18 @@ describe Oystercard do
     end
   end
 
-
-
+  describe "#journeys" do
+    context "records a list of journeys" do
+      it "starts empty" do
+        expect(subject.journeys).to be []
+      end
+      it "records one journey after touching in and out" do
+        subject.top_up(10)
+        subject.touch_in(station)
+        subject.touch_out(station1)
+        expect(subject.journeys).to include { {start: station, end: station1} }
+      end
+    end
+  end
 
  end #of describe Oystercard
